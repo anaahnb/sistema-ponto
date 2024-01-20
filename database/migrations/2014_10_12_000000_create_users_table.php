@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('matricula')->unique();
             $table->date('data_nascimento');
             $table->date('data_admissao');
+            $table->date('data_desligamento')->nullable();
             $table->boolean('usuario_ativo')->default(1);
             $table->string('telefone');
             $table->string('cpf')->unique();

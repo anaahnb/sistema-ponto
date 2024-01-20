@@ -23,6 +23,7 @@ class User extends Authenticatable
         'matricula',
         'data_nascimento',
         'data_admissao',
+        'data_desligamento',
         'usuario_ativo',
         'telefone',
         'cpf',
@@ -49,6 +50,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function criar($request){
+        return self::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'matricula' => $request['matricula'],
+            'data_nascimento' => $request['data_nascimento'],
+            'data_admissao' => $request['data_admissao'],
+            'data_desligamento' => $request['data_desligamento'],
+            'telefone' => $request['telefone'],
+            'cpf' => $request['cpf'],
+            'password' => $request['password']
+        ]);
+    }
 
     public function cargos()
     {

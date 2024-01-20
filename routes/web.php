@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("/home", "HomeController@index")->name("home");
+// Route::get("/", "HomeController@index")->name("home");
+
+Route::get('index', 'AuthController@index')->name('auth.index');
+Route::get('show', 'AuthController@show')->name('auth.show');
+Route::post('update/{id}','AuthController@update')->name('auth.update');
+Route::get('edit/{id}', 'AuthController@edit')->name('auth.edit');
+Route::get('destroy/{id}', 'AuthController@destroy')->name('auth.destroy');
