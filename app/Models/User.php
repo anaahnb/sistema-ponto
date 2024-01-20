@@ -20,8 +20,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'matricula',
+        'data_nascimento',
+        'data_admissao',
+        'usuario_ativo',
+        'telefone',
+        'cpf',
         'password',
     ];
+
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cargos()
+    {
+        return $this->belongsTo(Cargo::class, 'cargo_id', 'cargo_id');
+    }
 }
