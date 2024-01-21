@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Funcao;
+use Database\Seeders\CargoSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(10)->create();
+        $this->call(CargoSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(FuncaoSeeder::class);
+
     }
 }

@@ -8,7 +8,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/csss2?family=Inter:wght@500;800&display=swap" rel="stylesheet">
 
         <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,6 +23,7 @@
         * {
             font-family: 'Inter', sans-serif;
         }
+
     </style>
 
     <script>

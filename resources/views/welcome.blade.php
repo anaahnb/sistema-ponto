@@ -30,7 +30,7 @@
                     Registre, controle e otimize o tempo dos colaboradores de forma integrada e eficiente!
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> Entrar como colaborador </a>
+                    <a href="{{ route('login') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> Entrar </a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900"> Saiba mais <span aria-hidden="true">→</span></a>
                 </div>
             </div>

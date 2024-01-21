@@ -16,37 +16,35 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
+
+    
     protected $fillable = [
+        'user_id',
         'name', 
         'email', 
         'password', 
-        'matricula',
-        'data_nascimento',
-        'data_admissao',
-        'data_desligamento',
         'usuario_ativo',
-        'telefone',
-        'cpf',
+        'tipo_usuario',
     ];
 
     public static function criar($request){
         return self::create([
             'name' => $request['name'],
             'email' => $request['email'],
-            'matricula' => $request['matricula'],
-            'data_nascimento' => $request['data_nascimento'],
-            'data_admissao' => $request['data_admissao'],
-            'data_desligamento' => $request['data_desligamento'],
-            'telefone' => $request['telefone'],
-            'cpf' => $request['cpf'],
             'password' => $request['password']
         ]);
     }
 
-    protected $primaryKey = 'user_id';
+    public function isAdmin() {
+        return $this->tipo_usuario === 'Administrador';
+    }
 
-    public function cargos() {
-        return $this->belongsTo(Cargo::class, 'cargo_id', 'cargo_id');
+    public function colaborador()
+    {
+        return $this->belongsTo(Colaborador::class, 'colaborador_id');
     }
 
     /**

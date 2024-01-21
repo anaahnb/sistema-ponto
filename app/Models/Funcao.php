@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class Funcao extends Model
 {
-    protected $table = 'cargos';
+    use HasFactory;
+
+    protected $table = 'funcoes';
 
     protected $fillable = [
-        'cargo_nome',
+        'funcao_nome',
         'created_at',
         'updated_at'
     ];
 
-    protected $primaryKey = 'cargo_id';
+    protected $primaryKey = 'funcao_id';
 
     public function usuario()
     {

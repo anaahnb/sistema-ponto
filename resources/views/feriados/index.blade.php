@@ -5,13 +5,20 @@
     @include('components.navbar')
 
     <div class="mx-auto max-w-7xl px-4 md:px-10 py-4 md:py-7">
+        
+        @if(session('sucesso'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">Oba!</span> {{session('sucesso')}}
+            </div>
+        @endif
+
         <div>
             <div class="flex items-center justify-between">
-                <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"> Feriado </p>
+                <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"> Feriados </p>
                 <div class="flex items-center">
-                    <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                    <a href="{{ route('feriados.create') }}" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                         <p class="text-sm font-medium leading-none text-white"> Adicionar feriado </p>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -21,6 +28,52 @@
                 display: none;
             }
         </style>
+        
+        <form action="GET" action="{{ route('feriados.index') }}">
+            <div class="flex flex-col my-8">
+                <div class="-m-1.5 overflow-x-auto">
+                    <div class="p-1.5 min-w-full inline-block align-middle">
+                        <div class="border rounded-lg shadow overflow-hidden dark:border-gray-700 dark:shadow-gray-900">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-gray-400"> ID </th>
+                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-gray-400"> Descrição </th>
+                                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-gray-400"> Data </th>
+                                        <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-gray-400"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    @forelse ($feriados as $feriado)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"> {{ $feriado->feriado_id }} </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"> {{ $feriado->feriado_descricao }} </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"> {{ date('d-m-Y', strtotime($feriado->feriado_data)) }} </td>
+        
+                                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm">
+                                                <a href="{{ route('feriados.edit', $feriado->feriado_id) }}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                    <i class="h-5" data-feather="edit"></i>
+                                                </a>
+        
+                                                <a href="{{ route('feriados.destroy', $feriado->feriado_id) }}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                    <i class="h-5" data-feather="trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <td>
+                                            <p class="p-6 text-sm font-medium leading-6 text-gray-600 flex items-center gap-3">
+                                                <i class="h-5" data-feather="frown"></i> Nenhum feriado encontrado.
+                                            </p>
+                                        </td>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         
 
         <div class="antialiased h-screen pt-8">
@@ -89,62 +142,8 @@
                     </div>
                 </div>
             </div>
-        
-            <script>
-                const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        
-                function app() {
-                    return {
-                        month: '',
-                        year: '',
-                        no_of_days: [],
-                        blankdays: [],
-                        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        
-                        initDate() {
-                            let today = new Date();
-                            this.month = today.getMonth();
-                            this.year = today.getFullYear();
-                            this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
-                        },
-        
-                        isToday(date) {
-                            const today = new Date();
-                            const d = new Date(this.year, this.month, date);
-        
-                            return today.toDateString() === d.toDateString() ? true : false;
-                        },
-        
-                        getNoOfDays() {
-                            let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-        
-                            // find where to start calendar day of week
-                            let dayOfWeek = new Date(this.year, this.month).getDay();
-                            let blankdaysArray = [];
-                            for ( var i=1; i <= dayOfWeek; i++) {
-                                blankdaysArray.push(i);
-                            }
-        
-                            let daysArray = [];
-                            for ( var i=1; i <= daysInMonth; i++) {
-                                daysArray.push(i);
-                            }
-                            
-                            this.blankdays = blankdaysArray;
-                            this.no_of_days = daysArray;
-                        }
-                    }
-                }
-            </script>
         </div>
-
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-            </div>
-                <p tabindex="0" class="focus:outline-none text-base text-lg font-bold leading-normal text-gray-800"> Feriados de Janeiro </p>
-            </div>
-        <div>
-
         
-    
+        <script src="{{ asset('js/calendario.js') }}"></script>
+
 @endsection

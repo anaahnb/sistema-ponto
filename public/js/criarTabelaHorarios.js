@@ -16,26 +16,27 @@ function criarTabelaHorarios() {
     // Loop para criar as linhas da tabela
     turnos.forEach((turno) => {
         const row = document.createElement('tr');
-
+    
         // Adiciona a célula do turno
         const turnoCell = document.createElement('td');
         turnoCell.className = 'px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200';
         turnoCell.textContent = turno;
         row.appendChild(turnoCell);
-
+    
         // Adiciona as células dos dias da semana com inputs
-        diasDaSemana.forEach(() => {
+        diasDaSemana.forEach((dia) => {
             const cell = document.createElement('td');
             cell.className = 'px-6 py-4 whitespace-nowrap';
-
+    
             const input = document.createElement('input');
+            input.name = `diasDaSemana[${dia}][${turno}]`;
             input.type = 'time';
             input.className = 'class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"';
             cell.appendChild(input);
-
+    
             row.appendChild(cell);
         });
-
+    
         tableBody.appendChild(row);
     });
 }
