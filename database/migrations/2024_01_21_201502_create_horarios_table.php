@@ -18,8 +18,8 @@ class CreateHorariosTable extends Migration
             $table->foreignId('colaborador_id')->constrained('colaboradores');
             $table->string('dia');
             $table->string('turno');
-            $table->time('entrada');
-            $table->time('saida');
+            $table->time('horario_ponto');
+            // $table->time('saida');
             $table->timestamps();
         });
     }

@@ -53,11 +53,13 @@ class ColaboradorController extends Controller
         // Lógica para associar os horários ao colaborador
         foreach ($request->diasDaSemana as $dia => $turnos) {
             foreach ($turnos as $turno => $horario) {
+                // @dd($request->all());
                 Horario::create([
                     'colaborador_id' => $colaborador->colaborador_id,
                     'dia' => $dia,
                     'turno' => $turno,
-                    'entrada' => $horario,
+                    'horario_ponto' => $horario,
+                    // 'saida' => $horario
                 ]);
             }
         }

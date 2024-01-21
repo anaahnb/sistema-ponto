@@ -14,8 +14,8 @@ class Horario extends Model {
         'colaborador_id',
         'dia',
         'turno',
-        'entrada', 
-        'saida'
+        'horario_ponto', 
+        // 'saida'
     ];
 
     protected $primaryKey = 'horarios_id';
