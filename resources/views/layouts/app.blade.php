@@ -33,6 +33,21 @@
         feather.replace();
     </script>
 
+    <script>
+        function mascaraCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            cpf = cpf.replace(/(\d{3})(\d)/, '\$1.\$2');
+            cpf = cpf.replace(/(\d{3})(\d)/, '\$1.\$2');
+            cpf = cpf.replace(/(\d{3})(\d{1,2})/, '\$1-\$2');
+            return cpf;
+        }
+
+            var inputCPF = document.getElementById('cpf');
+            inputCPF.addEventListener('keyup', function() {
+                this.value = mascaraCPF(this.value);
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
 
