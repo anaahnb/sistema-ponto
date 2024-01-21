@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth'
 
     Route::get('/colaboradores', [ColaboradorController::class, 'index'])->name('colaboradores.index');
     Route::get('/colaboradores/create', [ColaboradorController::class, 'create'])->name('colaboradores.inserir');
-    Route::get('/colaboradores/store', [ColaboradorController::class, 'create'])->name('colaboradores.store');
+    Route::post('/colaboradores/store', [ColaboradorController::class, 'store'])->name('colaboradores.store');
     Route::get('/colaboradores/{id}/edit', [ColaboradorController::class, 'edit'])->name('colaboradores.edit');
     Route::put('/colaboradores/{id}', [ColaboradorController::class, 'update'])->name('colaboradores.update');
     Route::get('/colaboradores/{id}', [ColaboradorController::class, 'destroy'])->name('colaboradores.destroy');

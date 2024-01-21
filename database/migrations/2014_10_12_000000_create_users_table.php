@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('tipo_usuario', ['Administrador', 'Colaborador'])->default('Colaborador');
             $table->unsignedBigInteger('colaborador_id')->nullable()->unique(); 
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

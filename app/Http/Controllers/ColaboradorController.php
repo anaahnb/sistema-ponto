@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ColaboradorInserirRequest;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Colaborador;
@@ -32,23 +33,17 @@ class ColaboradorController extends Controller
         return view('colaboradores.inserir', compact('cargos', 'funcoes', 'turnos', 'diasDaSemana'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'cpf' => [
-                'required',
-                'numeric',
-                Rule::unique('colaboradores')->whereNull('data_rescisao'),
-            ],
-            'nome' => 'required|regex:/^[A-Z][a-z]+ [A-Z][a-z]+$/',
-            'email' => 'required|email',
-            'data_nascimento' => 'required|date',
-            'data_admissao' => 'required|date|before_or_equal:today',
-            'cargo_id' => 'required|exists:cargos,id',
-            'funcao_id' => 'required|exists:funcoes,id',
-            'data_rescisao' => 'nullable|date|after:data_admissao',
+    public function store(ColaboradorInserirRequest $request) {
+        
+        $usuario = User::create([
+            'name' => $request->colaborador_nome,
+            'email' => $request->colaborador_email,
+            'password' => Hash::make(123)
         ]);
+        // dd($usuario->user_id);
+        $colaborador = Colaborador::criarColaborador($request, $usuario->user_id);
+        
 
-        $colaborador = Colaborador::create($request->all());
         $this->associarHorariosAoColaborador($request, $colaborador);
 
         return redirect()->route('colaboradores.index')->with('sucesso', 'Colaborador inserido com sucesso!');
@@ -59,7 +54,7 @@ class ColaboradorController extends Controller
         foreach ($request->diasDaSemana as $dia => $turnos) {
             foreach ($turnos as $turno => $horario) {
                 Horario::create([
-                    'colaborador_id' => $colaborador->id,
+                    'colaborador_id' => $colaborador->colaborador_id,
                     'dia' => $dia,
                     'turno' => $turno,
                     'entrada' => $horario,
