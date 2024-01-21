@@ -13,17 +13,34 @@ class Colaborador extends Model
 
 
     protected $fillable = [
-        'cpf',
-        'nome',
-        'email',
-        'data_nascimento',
-        'data_admissao',
-        'data_rescisao',
-        'user_id',
         'cargo_id',
         'funcao_id',
-        'horario_id',
+        'user_id',
+        'colaborador_cpf',
+        'colaborador_nome',
+        'colaborador_email',
+        'colaborador_data_nascimento',
+        'colaborador_data_admissao',
+        'colaborador_data_rescisao',
     ];
+
+    protected $primaryKey = 'colaborador_id';
+
+    public static function criarColaborador($request, $user_id)
+    {
+
+        return self::create([
+            'cargo_id' => $request['cargo_id'],
+            'funcao_id' => $request['funcao_id'],
+            'user_id' => $user_id,
+            'colaborador_cpf' => $request['colaborador_cpf'],
+            'colaborador_nome' => $request['colaborador_nome'],
+            'colaborador_email' => $request['colaborador_email'],
+            'colaborador_data_admissao' => $request['colaborador_data_admissao'],
+            'colaborador_data_nascimento' => $request['colaborador_data_nascimento'],
+            'colaborador_data_rescisao' => $request['colaborador_data_rescisao'],
+        ]);
+    }
 
     public function user()
     {

@@ -55,7 +55,7 @@
                                                     <i class="h-5" data-feather="edit"></i>
                                                 </a>
         
-                                                <a href="{{ route('feriados.destroy', $feriado->feriado_id) }}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                <a data-modal-target="popup-modal_{{ $feriado->feriado_id }}" data-modal-toggle="popup-modal_{{$feriado->feriado_id}}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                                     <i class="h-5" data-feather="trash"></i>
                                                 </a>
                                             </td>
@@ -75,6 +75,7 @@
             </div>
         </form>
         
+        @include('feriados.modal')
 
         <div class="antialiased h-screen pt-8">
             <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>

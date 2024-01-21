@@ -48,7 +48,7 @@
                                                 <i class="h-5" data-feather="edit"></i>
                                             </a>
 
-                                            <a href="{{ route('usuarios.destroy', $usuario->user_id) }}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                            <a data-modal-target="popup-modal_{{ $usuario->user_id }}" data-modal-toggle="popup-modal_{{$usuario->user_id}}" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                                 <i class="h-5" data-feather="trash"></i>
                                             </a>
                                         </td>
@@ -67,5 +67,7 @@
             </div>
         </div>
     </div>
+
+    @include('usuarios.modal')
 
 @endsection

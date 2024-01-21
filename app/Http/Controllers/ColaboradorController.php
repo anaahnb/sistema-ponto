@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ColaboradorInserirRequest;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Colaborador;
@@ -16,8 +17,7 @@ use Illuminate\Validation\Rule;
 class ColaboradorController extends Controller
 {
 
-    public function index()
-    {
+    public function index() {
         $colaboradores = Colaborador::all();
         return view('colaboradores.index', compact('colaboradores'));
     }
@@ -32,48 +32,40 @@ class ColaboradorController extends Controller
         return view('colaboradores.inserir', compact('cargos', 'funcoes', 'turnos', 'diasDaSemana'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'cpf' => [
-                'required',
-                'numeric',
-                Rule::unique('colaboradores')->whereNull('data_rescisao'),
-            ],
-            'nome' => 'required|regex:/^[A-Z][a-z]+ [A-Z][a-z]+$/',
-            'email' => 'required|email',
-            'data_nascimento' => 'required|date',
-            'data_admissao' => 'required|date|before_or_equal:today',
-            'cargo_id' => 'required|exists:cargos,id',
-            'funcao_id' => 'required|exists:funcoes,id',
-            'data_rescisao' => 'nullable|date|after:data_admissao',
+    public function store(ColaboradorInserirRequest $request) {
+        
+        $usuario = User::create([
+            'name' => $request->colaborador_nome,
+            'email' => $request->colaborador_email,
+            'password' => Hash::make(123)
         ]);
 
-        $colaborador = Colaborador::create($request->all());
+        $colaborador = Colaborador::criarColaborador($request, $usuario->user_id);
         $this->associarHorariosAoColaborador($request, $colaborador);
 
         return redirect()->route('colaboradores.index')->with('sucesso', 'Colaborador inserido com sucesso!');
     }
 
     private function associarHorariosAoColaborador(Request $request, Colaborador $colaborador) {
-        // Lógica para associar os horários ao colaborador
         foreach ($request->diasDaSemana as $dia => $turnos) {
             foreach ($turnos as $turno => $horario) {
                 Horario::create([
-                    'colaborador_id' => $colaborador->id,
+                    'colaborador_id' => $colaborador->colaborador_id,
                     'dia' => $dia,
                     'turno' => $turno,
-                    'entrada' => $horario,
+                    'horario_ponto' => $horario,
                 ]);
             }
         }
     }
 
     public function edit($id) {
-        $colaboradores = Colaborador::findOrFail($id);
+        $colaborador = Colaborador::findOrFail($id);
         $usuarios = User::all();
         $cargos = Cargo::all();
+        $funcoes = Funcao::all();
 
-        return view('colaboradores.edit', compact('colaborador', 'usuarios', 'cargos'));
+        return view('colaboradores.inserir', compact('colaborador', 'usuarios', 'cargos', 'funcoes'));
     }
 
     public function update(Request $request, $id) {
