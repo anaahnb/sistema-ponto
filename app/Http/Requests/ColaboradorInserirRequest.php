@@ -25,10 +25,10 @@ class ColaboradorInserirRequest extends FormRequest
     public function rules()
     {
         return [
-            'colaborador_cpf' => ['required', 'string', 'cpf', 'unique:colaboradores, colaborador_cpf'],
+            'colaborador_cpf' => ['required', 'string', 'cpf', 'unique:colaboradores,colaborador_cpf'],
             'colaborador_nome' => ['required', 'string'],
-            'colaborador_email' => ['required', 'email', 'cpf', 'unique:colaboradores, colaborador_email'],
-            'colaborador_data_nascimento' => ['required', 'date', 'unique:colaboradores, colaborador_data_nascimento'],
+            'colaborador_email' => ['required', 'email', 'unique:colaboradores,colaborador_email'],
+            'colaborador_data_nascimento' => ['required', 'date'],
             'colaborador_data_admissao' => ['required', 'date', 'before_or_equal:today'],
             'cargo_id' => ['required', 'integer'],
             'funcao_id' => ['required', 'integer'],
