@@ -34,7 +34,7 @@ Route::post('/registrar_ponto/store', [RegistroPontoController::class, 'store'])
 Auth::routes();
 
 //ROTA PARA O ADMIN
-Route::middleware(["admin"])->group(function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/feriados', [FeriadoController::class, 'index'])->name('feriados.index');
     Route::get('/feriados/create', [FeriadoController::class, 'create'])->name('feriados.create');
     Route::post('/feriados', [FeriadoController::class, 'store'])->name('feriados.store');

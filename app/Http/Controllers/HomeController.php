@@ -26,12 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->tipo_usuario === 'Administrador') {
+
+        // dd(Auth::user()->tipo_usuario);
+        if (Auth::user()->tipo_usuario == 'Administrador') {
+        
             $usuarios = User::paginate(10);
             return view('usuarios.index', compact('usuarios'));
 
-        } else if (Auth::user()->tipo_usuario === 'Colaborador') {
-            $colaborador = Colaborador::findOrFail(Auth::id());
+        } else if (Auth::user()->tipo_usuario == 'Colaborador') {
+            $colaborador = User::findOrFail(Auth::id());
             return view('registro', compact('colaborador'));
         }
 
