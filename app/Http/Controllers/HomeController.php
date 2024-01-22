@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colaborador;
+use App\Models\Horario;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,9 @@ class HomeController extends Controller
             return view('usuarios.index', compact('usuarios'));
 
         } else if (Auth::user()->tipo_usuario == 'Colaborador') {
-            $colaboradores = User::findOrFail(Auth::id());
+            $colaboradores = Colaborador::where('user_id','=',Auth::id())->first();
+            // $horarios = Horario::where('colaborador_id','=','colaboradores.colaborador_id');
+            // @dd($colaboradores->name);
             return view('registro', compact('colaboradores'));
         }
 

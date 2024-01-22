@@ -17,7 +17,7 @@ class CreateColaboradoresTable extends Migration
             $table->id('colaborador_id');
             $table->foreignId('cargo_id')->constrained('cargos');
             $table->foreignId('funcao_id')->constrained('funcoes');
-            $table->foreignId('user_id')->constrained(); 
+            $table->foreignId('user_id')->constrained('users'); 
             $table->string('colaborador_cpf')->unique();
             $table->string('colaborador_nome');
             $table->string('colaborador_email')->unique();

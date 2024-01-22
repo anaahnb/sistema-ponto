@@ -11,7 +11,6 @@ class Colaborador extends Model
 
     protected $table = 'colaboradores';
 
-
     protected $fillable = [
         'cargo_id',
         'funcao_id',
@@ -54,6 +53,11 @@ class Colaborador extends Model
 
     public function funcao() {
         return $this->belongsTo(Funcao::class, 'funcao_id', 'funcao_id');
+    }
+
+    public function registro_pontos()
+    {
+        return $this->hasMany(RegistroPonto::class, 'registro_ponto_id', 'registro_ponto_id');
     }
 
     public function horarios() {

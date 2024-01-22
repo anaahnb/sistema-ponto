@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function colaborador()
     {
-        return $this->belongsTo(Colaborador::class, 'colaborador_id');
+        return $this->belongsTo(Colaborador::class, 'colaborador_id','colaborador_id');
     }
 
     /**

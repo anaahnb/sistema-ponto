@@ -18,7 +18,7 @@ class CreateRegistroPontosTable extends Migration
             $table->id('registro_ponto_id');
             $table->string('turno');
             $table->time('registro_ponto_horario');
-            $table->foreignId('colaborador_id')->references('colaborador_id')->on('colaboradores');
+            $table->foreignId('colaborador_id')->constrained('colaboradores');
             $table->timestamps();
         });
     }

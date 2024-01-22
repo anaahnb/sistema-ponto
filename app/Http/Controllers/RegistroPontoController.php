@@ -24,15 +24,17 @@ class RegistroPontoController extends Controller
                 "turno" => "Manhã",
                 "registro_ponto_horario" => date('H:i:s'),
             ]);
+            return redirect()->route('registro_ponto.index');
         } else {
             RegistroPonto::create([
                 "colaborador_id" => Auth::id(),
                 "turno" => "Tarde",
                 "registro_ponto_horario" => date('H:i:s'),
             ]);
+            return redirect()->route('registro_ponto.index');
         }
 
-        return redirect()->route('welcome', compact('colaborador'))->with('sucesso', 'Ponto registrado com sucesso!');
+        return redirect()->route('registro_ponto.index');
 
         
     }

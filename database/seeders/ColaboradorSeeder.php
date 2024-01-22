@@ -30,7 +30,7 @@ class ColaboradorSeeder extends Seeder
             Colaborador::create([
                 'cargo_id' => 1,
                 'funcao_id' => 1,
-                'user_id' => 1,
+                'user_id' => 2,
                 'colaborador_cpf' => '61007944382',
                 'colaborador_nome' => 'Ana Julia',
                 'colaborador_email' => 'ana@dev.com',
