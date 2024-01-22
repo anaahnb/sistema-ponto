@@ -21,13 +21,20 @@ use App\Models\RegistroPonto;
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('welcome'); })->name('welcome');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+//ROTA PARA O USUARIO
+Route::get('/registrar_ponto', [RegistroPontoController::class, 'create'])->name('registro_ponto.index');
+Route::post('/registrar_ponto/store', [RegistroPontoController::class, 'store'])->name('registro_ponto.store');
 
 Auth::routes();
 
 //ROTA PARA O ADMIN
-// Route::middleware(['admin'])->group(function () {
+Route::middleware(["admin"])->group(function () {
     Route::get('/feriados', [FeriadoController::class, 'index'])->name('feriados.index');
     Route::get('/feriados/create', [FeriadoController::class, 'create'])->name('feriados.create');
     Route::post('/feriados', [FeriadoController::class, 'store'])->name('feriados.store');
@@ -48,10 +55,5 @@ Auth::routes();
     Route::get('/colaboradores/{id}/edit', [ColaboradorController::class, 'edit'])->name('colaboradores.edit');
     Route::put('/colaboradores/{id}', [ColaboradorController::class, 'update'])->name('colaboradores.update');
     Route::post('/colaboradores/{id}', [ColaboradorController::class, 'destroy'])->name('colaboradores.destroy');
-// });
+});
 
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-
-//ROTA PARA O USUARIO
-Route::get('/registrar_ponto', [RegistroPontoController::class, 'create'])->name('registro_ponto.index');
-Route::post('/registrar_ponto/store', [RegistroPontoController::class, 'store'])->name('registro_ponto.store');

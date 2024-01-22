@@ -16,16 +16,16 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!empty(session('authenticated'))) {
-            $request->session()->put('authenticated', time());
-            return $next($request);
-        }
-        return redirect('registro_ponto.index')->with('error', 'Você não tem permissão para acessar esta página.');
+        // if (!empty(session('authenticated'))) {
+        //     $request->session()->put('authenticated', time());
+        //     return $next($request);
+        // }
+        // return redirect('registro_ponto.index')->with('error', 'Você não tem permissão para acessar esta página.');
 
         if (auth()->check() && auth()->user()->tipo_usuario === 'Administrador') {
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'Você não tem permissão para acessar esta página.');
+        return redirect('registro_ponto.index')->with('error', 'Você não tem permissão para acessar esta página.');
     }
 }

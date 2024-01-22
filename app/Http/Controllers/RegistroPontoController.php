@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class RegistroPontoController extends Controller
 {
     public function create() {
-        $colaborador = Colaborador::where('user_id', '=', Auth::id());
-        return view('registro', compact('colaborador'));
+        $colaboradores = Colaborador::findOrFail(Auth::id())->first();
+        // dd($colaboradores);
+        return view('registro', compact('colaboradores'));
 
     }
 
