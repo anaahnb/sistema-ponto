@@ -29,8 +29,10 @@ class HomeController extends Controller
         if (Auth::user()->tipo_usuario === 'Administrador') {
             $usuarios = User::paginate(10);
             return view('usuarios.index', compact('usuarios'));
+
         } else if (Auth::user()->tipo_usuario === 'Colaborador') {
-            return view('registro');
+            $colaborador = Colaborador::findOrFail(Auth::id());
+            return view('registro', compact('colaborador'));
         }
 
     }

@@ -52,5 +52,5 @@ Route::middleware(['admin'])->group(function () {
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 //ROTA PARA O USUARIO
-Route::get('/registrar_ponto', [RegistroPonto::class, 'index'])->name('registro_ponto.index');
+Route::get('/registrar_ponto', [RegistroPonto::class, 'create'])->name('registro_ponto.index');
 Route::post('/registrar_ponto/store', [RegistroPonto::class, 'store'])->name('registro_ponto.store');
