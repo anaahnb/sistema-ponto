@@ -34,8 +34,8 @@ class HomeController extends Controller
             return view('usuarios.index', compact('usuarios'));
 
         } else if (Auth::user()->tipo_usuario == 'Colaborador') {
-            $colaborador = User::findOrFail(Auth::id());
-            return view('registro', compact('colaborador'));
+            $colaboradores = User::findOrFail(Auth::id());
+            return view('registro', compact('colaboradores'));
         }
 
     }
