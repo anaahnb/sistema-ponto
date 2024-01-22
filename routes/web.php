@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegistroPontoController;
 use App\Http\Controllers\UserController;
 use App\Models\RegistroPonto;
 
@@ -26,7 +27,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 //ROTA PARA O ADMIN
-Route::middleware(['admin'])->group(function () {
+// Route::middleware(['admin'])->group(function () {
     Route::get('/feriados', [FeriadoController::class, 'index'])->name('feriados.index');
     Route::get('/feriados/create', [FeriadoController::class, 'create'])->name('feriados.create');
     Route::post('/feriados', [FeriadoController::class, 'store'])->name('feriados.store');
@@ -47,10 +48,10 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/colaboradores/{id}/edit', [ColaboradorController::class, 'edit'])->name('colaboradores.edit');
     Route::put('/colaboradores/{id}', [ColaboradorController::class, 'update'])->name('colaboradores.update');
     Route::post('/colaboradores/{id}', [ColaboradorController::class, 'destroy'])->name('colaboradores.destroy');
-});
+// });
 
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 //ROTA PARA O USUARIO
-Route::get('/registrar_ponto', [RegistroPonto::class, 'create'])->name('registro_ponto.index');
-Route::post('/registrar_ponto/store', [RegistroPonto::class, 'store'])->name('registro_ponto.store');
+Route::get('/registrar_ponto', [RegistroPontoController::class, 'create'])->name('registro_ponto.index');
+Route::post('/registrar_ponto/store', [RegistroPontoController::class, 'store'])->name('registro_ponto.store');

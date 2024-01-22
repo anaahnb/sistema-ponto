@@ -20,7 +20,7 @@ class AdminMiddleware
             $request->session()->put('authenticated', time());
             return $next($request);
         }
-        return redirect('registro')->with('error', 'Você não tem permissão para acessar esta página.');
+        return redirect('registro_ponto.index')->with('error', 'Você não tem permissão para acessar esta página.');
 
         if (auth()->check() && auth()->user()->tipo_usuario === 'Administrador') {
             return $next($request);

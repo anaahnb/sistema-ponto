@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class RegistroPontoController extends Controller
 {
     public function create() {
-        return view('registro');
+        $colaborador = Colaborador::where('user_id', '=', Auth::id());
+        return view('registro', compact('colaborador'));
 
     }
 
     public function store(Request $request) {
-
-        $colaborador = Colaborador::findOrFail(Auth::id());
 
         if(date('H:i:s') < '13:00:00'){
             RegistroPonto::create([
